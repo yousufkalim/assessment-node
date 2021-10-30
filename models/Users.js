@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema(
     },
     marital_status: {
       type: String,
+      required: true,
     },
     post: {
       type: String,
@@ -34,7 +35,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
-    religious_sect: {
+    sect: {
       type: String,
       required: true,
     },
@@ -53,7 +54,10 @@ const userSchema = new mongoose.Schema(
     joining_time: {
       type: String,
     },
-    current_employer: { type: String, required: true },
+    current_employer: {
+      type: String,
+      required: true,
+    },
     current_salary: {
       type: Number,
       required: true,
@@ -62,16 +66,17 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    reason_for_leaving_current_job: {
+    leaving_reason: {
       type: String,
     },
-    result: {
-      type: Array,
-    },
+    // result: {
+    //   type: Array,
+    // },
   },
   {
     timestamps: true,
   }
 );
 
-//export model module.exports = mongoose.model(-,user_schema);
+//export model
+module.exports = mongoose.model("users", user_schema);

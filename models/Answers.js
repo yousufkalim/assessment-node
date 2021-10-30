@@ -16,4 +16,5 @@ const ans_schema = new mongoose.Schema({
   },
 });
 
-//export model module.exports = mongoose.model(-,ans_schema);
+//export model
+module.exports = mongoose.model("answer", ans_schema);

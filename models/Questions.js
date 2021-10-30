@@ -4,6 +4,9 @@ const ques_schema = new mongoose.Schema(
     question: {
       type: String,
     },
+    question_number: {
+      type: Number,
+    },
     difficulty_level: {
       type: Number,
     },
@@ -36,4 +39,5 @@ const ques_schema = new mongoose.Schema(
   }
 );
 
-//export model module.exports = mongoose.model(-,question_schema);
+//export model
+module.exports = mongoose.model("questions", question_schema);
