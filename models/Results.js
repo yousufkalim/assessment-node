@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
+
+// Schema
 const result_schema = new mongoose.schema(
   {
     user: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "users",
     },
     answers: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "answers",
       },
     ],
@@ -19,4 +21,6 @@ const result_schema = new mongoose.schema(
     timestamps: true,
   }
 );
+
+//export model
 module.exports = mongoose.model("results", result_schema);

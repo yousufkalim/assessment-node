@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+
+// Schema
 const ques_schema = new mongoose.Schema(
   {
     question: {
@@ -40,4 +42,4 @@ const ques_schema = new mongoose.Schema(
 );
 
 //export model
-module.exports = mongoose.model("questions", question_schema);
+module.exports = mongoose.model("questions", ques_schema);

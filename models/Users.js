@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Schema
-const userSchema = new mongoose.Schema(
+const user_schema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -69,9 +69,10 @@ const userSchema = new mongoose.Schema(
     leaving_reason: {
       type: String,
     },
-    // result: {
-    //   type: Array,
-    // },
+    result: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "results",
+    },
   },
   {
     timestamps: true,
