@@ -3,7 +3,7 @@ const app = require("express")();
 const port = process.env.PORT || 5000;
 
 require("./database"); //connecting with db through this file
-
+require("./controllers/excelReader");
 //middleware
 require("./middlewares/common.js")(app);
 
