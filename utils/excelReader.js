@@ -4,7 +4,6 @@ const Answers = require("../models/Answers.js");
 
 exports.readData = async (req, res) => {
   try {
-    console.log("object");
     const rows = await excel(`./uploads/${req.params.technology}.xlsx`);
     const last_index = rows.length - 1;
     let questions = [];

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const excel_reader = require("../controllers/excelReader");
+const excel_reader = require("../utils/excelReader");
 
 router.post("/:technology", excel_reader.readData);
 
