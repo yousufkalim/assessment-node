@@ -8,7 +8,7 @@ const user_schema = new mongoose.Schema(
       required: true,
     },
     dob: {
-      type: Date,
+      type: String,
       required: true,
     },
     email: {
@@ -32,7 +32,16 @@ const user_schema = new mongoose.Schema(
     },
     skill: {
       type: String,
-      required: true,
+      enums: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Node",
+        "dotNet",
+        "Native",
+        "Express",
+      ],
     },
 
     sect: {
