@@ -3,12 +3,12 @@ const { check, validationResult } = require("express-validator");
 exports.validateUser = [
   check("name", "name is required.").notEmpty().trim(),
   check("email", "email is required").notEmpty().isEmail().trim(),
-  check("date of birth", "date of birth is required").notEmpty().isDate(),
-  check("contact no", "contact number is required")
+  check("dob", "date of birth is required").notEmpty(),
+  check("contact_no", "contact number is required")
     .notEmpty()
     .isNumeric()
     .trim(),
-  check("marital status", "Show you marrital status").notEmpty().trim(),
+  check("marital_status", "Show you marrital status").notEmpty().trim(),
   check("post", "mention your post").notEmpty().trim(),
   check("skills", "mention your skills").notEmpty().trim(),
   check("sect", "mention your sect").notEmpty().trim(),

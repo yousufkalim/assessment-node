@@ -15,20 +15,7 @@ const ques_schema = new mongoose.Schema(
     category: {
       type: String,
     },
-    technology: {
-      type: String,
-
-      enums: [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "React",
-        "Node",
-        "dotNet",
-        "Native",
-        "Express",
-      ],
-    },
+    technology: [String],
     first: {
       type: Boolean,
     },

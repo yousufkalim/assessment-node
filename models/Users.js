@@ -8,13 +8,12 @@ const user_schema = new mongoose.Schema(
       required: true,
     },
     dob: {
-      type: Date,
+      type: String,
       required: true,
     },
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
     },
     contact_no: {
@@ -30,10 +29,16 @@ const user_schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    skill: {
-      type: String,
-      required: true,
-    },
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Node",
+      "dotNet",
+      "Native",
+      "Express",
+    ],
 
     sect: {
       type: String,
