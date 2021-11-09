@@ -14,7 +14,6 @@ const user_schema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
     },
     contact_no: {
@@ -30,19 +29,16 @@ const user_schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    skill: {
-      type: String,
-      enums: [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "React",
-        "Node",
-        "dotNet",
-        "Native",
-        "Express",
-      ],
-    },
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Node",
+      "dotNet",
+      "Native",
+      "Express",
+    ],
 
     sect: {
       type: String,
