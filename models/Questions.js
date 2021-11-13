@@ -15,7 +15,7 @@ const ques_schema = new mongoose.Schema(
     category: {
       type: String,
     },
-    technology: [String],
+    technology: String,
     first: {
       type: Boolean,
     },

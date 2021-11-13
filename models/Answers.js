@@ -12,7 +12,7 @@ const ans_schema = new mongoose.Schema(
     correct: {
       type: Boolean,
     },
-    technology: [String],
+    technology: String,
     next_question: {
       type: Number,
     },
