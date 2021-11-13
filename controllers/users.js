@@ -1,7 +1,9 @@
+// Init
 const Users = require("../models/Users.js");
 const Questions = require("../models/Questions");
 const Answers = require("../models/Answers");
 
+// POST - User
 exports.create = async (req, res) => {
   try {
     const user = await Users.create(req.body);

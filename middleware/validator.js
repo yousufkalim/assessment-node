@@ -1,5 +1,7 @@
+// init
 const { check, validationResult } = require("express-validator");
 
+// Schema to validate user
 exports.validateUser = [
   check("name", "name is required.").notEmpty().trim(),
   check("email", "email is required").notEmpty().isEmail().trim(),
@@ -27,6 +29,8 @@ exports.validateUser = [
     .trim(),
   // check("leaving_reason","Mention the reason to leave your current job").notEmpty.trim(),
 ];
+
+// Checking if req is validated or not
 exports.isValidated = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

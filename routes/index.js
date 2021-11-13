@@ -1,7 +1,8 @@
+// Init
 const express = require("express");
 const router = express.Router();
 
-//add parent route
+// All the api routes
 router.use("/postData", require("./data"));
 router.use("/users", require("./users"));
 

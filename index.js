@@ -1,3 +1,4 @@
+// init
 require("dotenv").config();
 const app = require("express")();
 const port = process.env.PORT || 5000;
@@ -5,7 +6,7 @@ const port = process.env.PORT || 5000;
 require("./database"); //connecting with db through this file
 
 //middleware
-require("./middlewares/common.js")(app);
+require("./middleware/common.js")(app);
 
 //api routes
 app.use("/api", require("./routes"));
