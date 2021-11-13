@@ -23,4 +23,4 @@ const ans_schema = new mongoose.Schema(
 );
 
 //export model
-module.exports = mongoose.model("answer", ans_schema);
+module.exports = mongoose.model("answers", ans_schema);
