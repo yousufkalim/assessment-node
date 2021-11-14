@@ -13,9 +13,7 @@ const result_schema = new mongoose.schema(
         ref: "answers",
       },
     ],
-    rank: {
-      type: string,
-    },
+    rank: String,
   },
   {
     timestamps: true,

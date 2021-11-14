@@ -3,18 +3,22 @@ const mongoose = require("mongoose");
 //making schema
 const ans_schema = new mongoose.Schema(
   {
-    question: {
-      type: Number,
-    },
-    answer: {
+    question: Number,
+    answer: String,
+    correct: Boolean,
+    next_question: Number,
+    technology: {
       type: String,
-    },
-    correct: {
-      type: Boolean,
-    },
-    technology: String,
-    next_question: {
-      type: Number,
+      enum: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Node",
+        "dotNet",
+        "Native",
+        "Express",
+      ],
     },
   },
   {

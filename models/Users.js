@@ -24,27 +24,17 @@ const user_schema = new mongoose.Schema(
     marital_status: {
       type: String,
       required: true,
+      enum: ["single", "married", "divorced", "widowed"],
     },
-    post: {
+    role: {
       type: String,
       required: true,
     },
-    skills: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node",
-      "dotNet",
-      "Native",
-      "Express",
-    ],
-
+    skills: {
+      type: Array,
+      required: true,
+    },
     sect: {
-      type: String,
-      required: true,
-    },
-    vacancy_source: {
       type: String,
       required: true,
     },
@@ -58,22 +48,13 @@ const user_schema = new mongoose.Schema(
     },
     joining_time: {
       type: String,
-    },
-    current_employer: {
-      type: String,
       required: true,
     },
-    current_salary: {
-      type: Number,
-      required: true,
-    },
-    expected_salary: {
-      type: Number,
-      required: true,
-    },
-    leaving_reason: {
-      type: String,
-    },
+    vacancy_source: String,
+    current_employer: String,
+    current_salary: Number,
+    expected_salary: Number,
+    leaving_reason: String,
     result: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "results",
