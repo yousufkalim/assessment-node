@@ -1,7 +1,6 @@
 // init
 const mongoose = require("mongoose");
 const Users = require("../models/Users");
-const Questions = require("../models/Questions");
 const Answers = require("../models/Answers");
 const Result = require("../models/Results");
 
@@ -80,6 +79,55 @@ exports.create = async (req, res) => {
       String(overall_percentage).substring(0, 2).split("").join(".")
     );
 
+    // Aggregation to combine question and user answer in order to show question and it's answer in admin panel
+    const questionnaire = await Answers.aggregate([
+      // Finding answers by answer id's provided by user
+      {
+        $match: {
+          _id: {
+            $in: answerIds,
+          },
+        },
+      },
+      // Finding questions against the answers we found
+      // We will find question by matching question_number and technology
+      {
+        $lookup: {
+          from: "questions",
+          let: {
+            number: "$question",
+            technology: "$technology",
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    {
+                      $eq: ["$question_number", "$$number"],
+                    },
+                    {
+                      $eq: ["$technology", "$$technology"],
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+          as: "result",
+        },
+      },
+      // Deleting all the other fields expect question id, answer id and technology
+      {
+        $project: {
+          _id: 0,
+          question: { $arrayElemAt: ["$result._id", 0] },
+          answer: "$_id",
+          technology: 1,
+        },
+      },
+    ]);
+
     // Posting result in DB
     const result = await Result.create({
       user: user._id,
@@ -90,6 +138,7 @@ exports.create = async (req, res) => {
       overall_percentage,
       overall_rank,
       result_by_tech,
+      questionnaire,
     });
 
     // All done
