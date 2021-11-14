@@ -10,11 +10,11 @@ exports.validateUser = [
     .notEmpty()
     .isNumeric()
     .trim(),
-  check("marital_status", "Show you marrital status").notEmpty().trim(),
+  check("marital_status", "Show you marital status").notEmpty().trim(),
   check("post", "mention your post").notEmpty().trim(),
   check("skills", "mention your skills").notEmpty().trim(),
   check("sect", "mention your sect").notEmpty().trim(),
-  check("vacancy_source", "How did you haer about this job?").notEmpty().trim(),
+  check("vacancy_source", "How did you hear about this job?").notEmpty().trim(),
   check("total_experience", "your total experience is required")
     .notEmpty()
     .trim(),
