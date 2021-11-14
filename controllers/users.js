@@ -174,3 +174,48 @@ exports.create = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
+// GET - Test controller to send dummy answers to evaluate the result
+exports.test = async (req, res) => {
+  try {
+    // Finding one user
+    const user = await Users.findOne();
+
+    // Finding answers from HTML and grouping by it's question
+    const answers = await Answers.aggregate([
+      {
+        $match: {
+          technology: "HTML",
+        },
+      },
+      // Grouping answers by question
+      {
+        $group: {
+          _id: "$question",
+          data: {
+            $push: "$$ROOT",
+          },
+        },
+      },
+    ]);
+
+    let answerIds = new Array(); // Initializing array to store ids
+
+    // Mapping through all the answers to pick only one answer id from one group
+    answers.map((answerSet) => {
+      answerIds.push(answerSet.data[Math.round(Math.random())]._id);
+    });
+
+    // All done
+    res.json({
+      success: true,
+      message: "Test completed successfully",
+      userId: user._id,
+      answerIds,
+    });
+  } catch (err) {
+    // Error handling
+    console.log("Error ----> ", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
