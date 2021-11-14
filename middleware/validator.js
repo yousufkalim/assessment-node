@@ -3,31 +3,29 @@ const { check, validationResult } = require("express-validator");
 
 // Schema to validate user
 exports.validateUser = [
-  check("name", "name is required.").notEmpty().trim(),
-  check("email", "email is required").notEmpty().isEmail().trim(),
-  check("dob", "date of birth is required").notEmpty(),
-  check("contact_no", "contact number is required")
+  check("name", "Name is required.").notEmpty().trim(),
+  check("dob", "Date of birth is required").notEmpty(),
+  check("email", "A valid email is required").notEmpty().isEmail().trim(),
+  check("contact_no", "Contact number is required")
     .notEmpty()
     .isNumeric()
     .trim(),
-  check("marital_status", "Show you marital status").notEmpty().trim(),
-  check("post", "mention your post").notEmpty().trim(),
-  check("skills", "mention your skills").notEmpty().trim(),
-  check("sect", "mention your sect").notEmpty().trim(),
-  check("vacancy_source", "How did you hear about this job?").notEmpty().trim(),
-  check("total_experience", "your total experience is required")
+  check("marital_status", "Marital status is required").notEmpty().trim(),
+  check("post", "Mention your post").notEmpty().trim(),
+  check("skills", "Mention your skills").notEmpty().trim(),
+  check("sect", "Mention your sect").notEmpty().trim(),
+  check("total_experience", "Your total experience is required")
     .notEmpty()
     .trim(),
-  check("post_experience", "your post experience is required")
+  check("post_experience", "Your post experience is required")
     .notEmpty()
     .trim(),
-  check("joining_time", "Mention your expected time to join").notEmpty().trim(),
-  check("current_employer", "Mention your current employer").notEmpty().trim(),
-  check("current_salary", "Mention your current salary").notEmpty().trim(),
-  check("expected_salary", "Mention your salary expectations")
-    .notEmpty()
-    .trim(),
-  // check("leaving_reason","Mention the reason to leave your current job").notEmpty.trim(),
+  check("joining_time").notEmpty().trim(),
+  check("vacancy_source").trim(),
+  check("current_employer").trim(),
+  check("current_salary").trim(),
+  check("expected_salary").trim(),
+  check("leaving_reason").trim(),
 ];
 
 // Checking if req is validated or not

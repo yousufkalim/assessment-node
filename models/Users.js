@@ -26,7 +26,7 @@ const user_schema = new mongoose.Schema(
       required: true,
       enum: ["single", "married", "divorced", "widowed"],
     },
-    role: {
+    post: {
       type: String,
       required: true,
     },
