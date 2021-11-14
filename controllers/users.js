@@ -96,7 +96,7 @@ exports.create = async (req, res) => {
           },
         },
       },
-      // Grouping questions by technology
+      // Grouping answers by technology
       {
         $group: {
           _id: "$technology",
@@ -155,7 +155,7 @@ exports.create = async (req, res) => {
           },
         },
       },
-      // Sorting questions by order
+      // Sorting answers by order
       { $sort: { order: 1 } },
       // Removing the order key because now we don't need
       { $project: { _id: 1, data: 1 } },
