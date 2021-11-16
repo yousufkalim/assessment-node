@@ -3,24 +3,24 @@ const mongoose = require("mongoose");
 // Schema
 const ques_schema = new mongoose.Schema(
   {
-    question: {
+    question: String,
+    question_number: Number,
+    difficulty_level: Number,
+    category: String,
+    first: Boolean,
+    facial_expressions: Number,
+    technology: {
       type: String,
-    },
-    question_number: {
-      type: Number,
-    },
-    difficulty_level: {
-      type: Number,
-    },
-    category: {
-      type: String,
-    },
-    technology: [String],
-    first: {
-      type: Boolean,
-    },
-    facial_expressions: {
-      type: Number,
+      enum: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Node",
+        "dotNet",
+        "Native",
+        "Express",
+      ],
     },
   },
   {

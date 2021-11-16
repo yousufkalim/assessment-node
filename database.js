@@ -1,13 +1,17 @@
+// Init
 const mongoose = require("mongoose");
 const mongoURL = process.env.MONGODB_URI;
+
 mongoose.set("debug", true);
+
+// DB connection
 mongoose
   .connect(mongoURL, {
     // Some common settings (You don't need to understand these)
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    //  useCreateIndex: true,   //commecting out as its throwing error of not supported
-    //  useFindAndModify: false, //commecting out as its throwing error of not supported
+    // useCreateIndex: true, //connecting out as its throwing error of not supported
+    // useFindAndModify: false, //connecting out as its throwing error of not supported
     ignoreUndefined: true,
   })
   .then(() => {

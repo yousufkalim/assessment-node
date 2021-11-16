@@ -1,14 +1,20 @@
+// Init
 const excel = require("read-excel-file/node");
 const Questions = require("../models/Questions.js");
 const Answers = require("../models/Answers.js");
 
+// Function to read data from excel file
 exports.readData = async (req, res) => {
   try {
+    // Reading from file
     const rows = await excel(`./uploads/${req.params.technology}.xlsx`);
     const last_index = rows.length - 1;
     let questions = [];
     let answers = [];
+
+    // Mapping through all the rows
     rows.map(async (row, index) => {
+      // Making a questions object
       const question = {
         question: row[0],
         question_number: index + 1,
@@ -18,6 +24,8 @@ exports.readData = async (req, res) => {
         facial_expressions: 1,
       };
       questions.push(question);
+
+      // Making answers
       const answer = [
         {
           question: index + 1,
@@ -54,10 +62,15 @@ exports.readData = async (req, res) => {
       }
       answers.push(...answer);
     });
+
+    // Posting in db
     const quez = await Questions.insertMany(questions);
     const ans = await Answers.insertMany(answers);
+
+    // Done
     res.json({ success: true, quez, ans });
   } catch (err) {
+    // Error handling
     console.log("Error ----> ", err);
     res.status(500).json({ success: false, message: "Server error" });
   }

@@ -1,8 +1,9 @@
+// init
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-//exporting common middlewares
+//exporting common middleware
 module.exports = (app) => {
   app.use(cors({ origin: true })); // CORS (Cross Origin Policy) to restrict unknown requests
   app.use(morgan("dev")); //to log requests

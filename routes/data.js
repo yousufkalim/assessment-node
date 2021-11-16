@@ -1,11 +1,9 @@
+// init
 const router = require("express").Router();
-
 const excel_reader = require("../utils/excelReader");
 
-const test = require("../controllers/test");
-
+// Test post via excel files
 router.post("/:technology", excel_reader.readData);
-router.get("/:technology", test.getQuestions);
-router.get("/:technology", test.getAnswers);
 
+// Export
 module.exports = router;

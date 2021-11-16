@@ -3,18 +3,22 @@ const mongoose = require("mongoose");
 //making schema
 const ans_schema = new mongoose.Schema(
   {
-    question: {
-      type: Number,
-    },
-    answer: {
+    question: Number,
+    answer: String,
+    correct: Boolean,
+    next_question: Number,
+    technology: {
       type: String,
-    },
-    correct: {
-      type: Boolean,
-    },
-    technology: [String],
-    next_question: {
-      type: Number,
+      enum: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Node",
+        "dotNet",
+        "Native",
+        "Express",
+      ],
     },
   },
   {
@@ -23,4 +27,4 @@ const ans_schema = new mongoose.Schema(
 );
 
 //export model
-module.exports = mongoose.model("answer", ans_schema);
+module.exports = mongoose.model("answers", ans_schema);
