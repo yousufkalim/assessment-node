@@ -141,11 +141,14 @@ exports.create = async (req, res) => {
       questionnaire,
     });
 
+    user.result = result._id;
+    await user.save();
+
     // All done
     res.json({
       success: true,
       message: "Result evaluated successfully",
-      result,
+      user,
     });
   } catch (err) {
     // Error handling
