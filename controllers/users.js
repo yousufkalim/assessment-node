@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
     let skills = req.body.skills.split(", "); //converting into array of skills obtained from form
 
     // Creating user in db
-    await Users.create({ ...req.body, skills });
+    let user = await Users.create({ ...req.body, skills });
 
     // Aggregation to find questions by skill
     const questions = await Questions.aggregate([
@@ -165,6 +165,7 @@ exports.create = async (req, res) => {
     res.json({
       success: true,
       message: "User added successfully",
+      user,
       questions,
       answers,
     });

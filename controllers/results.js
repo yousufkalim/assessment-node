@@ -153,3 +153,17 @@ exports.create = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+exports.checkresults = async (req, res) => {
+  try {
+    const user = await Users.findOne();
+    res.json({
+      email: user.email,
+      success: true,
+      message: "APIIIIII BEING USED successfully",
+      result,
+    });
+  } catch (err) {
+    console.log("Error ----> ", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
