@@ -157,6 +157,7 @@ exports.create = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
 exports.getResults = async (req, res) => {
   try {
     const user = await Users.findOne({

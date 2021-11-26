@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
   try {
     let { email, skills } = req.body;
     skills = skills.split(", "); //converting into array of skills obtained from form
-    
+
     // Checking for existing user
     let existingUser = await Users.findOne({ email });
 
@@ -42,7 +42,7 @@ exports.update = async (req, res) => {
     delete req.body.skills;
 
     // Updating the user in db
-    const user = await Users.findOne({ email: req.body.email });
+    let user = await Users.findOne({ email: req.body.email });
 
     if (!user) {
       return res
