@@ -3,53 +3,35 @@ const mongoose = require("mongoose");
 // Schema
 const user_schema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    dob: {
-      type: String,
-      required: true,
-    },
+    name: String,
+    dob: String,
     email: {
       type: String,
+      unique: true,
       required: true,
       lowercase: true,
     },
     contact_no: {
       type: String,
-      required: true,
       minlength: 8,
     },
     marital_status: {
       type: String,
-      required: true,
-      enum: ["Unmarried", "Married", "Divorced", "Widow"],
+      enum: ["single", "married", "divorced", "widower"],
     },
-    post: {
-      type: String,
-      required: true,
-    },
+    post: String,
     address: String,
     skills: {
       type: Array,
       required: true,
     },
-    sect: {
-      type: String,
-      required: true,
-    },
-    total_experience: {
-      type: Number,
-      required: true,
-    },
-    post_experience: {
-      type: Number,
-      required: true,
-    },
-    joining_time: {
-      type: String,
-      required: true,
+    sect: String,
+    total_experience: String,
+    post_experience: String,
+    joining_time: String,
+    test_conducted: {
+      type: Boolean,
+      default: false,
     },
     vacancy_source: String,
     current_employer: String,

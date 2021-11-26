@@ -4,7 +4,8 @@ const user = require("../controllers/users");
 const { validateUser, isValidated } = require("../middleware/validator");
 
 // User Registration
-router.post("/", validateUser, isValidated, user.create);
+router.post("/", user.create);
+router.put("/", validateUser, isValidated, user.update);
 
 // GET - Test route to send dummy answers to evaluate the result
 router.get("/test", user.test);

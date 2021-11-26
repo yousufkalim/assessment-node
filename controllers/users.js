@@ -3,13 +3,59 @@ const Users = require("../models/Users.js");
 const Questions = require("../models/Questions");
 const Answers = require("../models/Answers");
 
-// POST - User
+// POST - Create user by HR
 exports.create = async (req, res) => {
   try {
-    let skills = req.body.skills.split(", "); //converting into array of skills obtained from form
+    let { email, skills } = req.body;
+    skills = skills.split(", "); //converting into array of skills obtained from form
+    
+    // Checking for existing user
+    let existingUser = await Users.findOne({ email });
 
-    // Creating user in db
-    let user = await Users.create({ ...req.body, skills });
+    if (existingUser) {
+      // If we found a user then we have to set its test_conducted to false
+      existingUser.test_conducted = false;
+      await existingUser.save();
+
+      // Done
+      return res.json({
+        success: true,
+        message: "Candidate added successfully!",
+      });
+    }
+
+    // Creating a user with email and skills
+    await Users.create({ email, skills });
+
+    // Done
+    res.json({ success: true, message: "Candidate added successfully!" });
+  } catch (err) {
+    // Error handling
+    console.log("Error ----> ", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+// Update - User
+exports.update = async (req, res) => {
+  try {
+    delete req.body.skills;
+
+    // Updating the user in db
+    const user = await Users.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found with this email!" });
+    } else if (user.test_conducted) {
+      return res
+        .status(403)
+        .json({ success: false, message: "You cannot perform the test again" });
+    }
+
+    user = req.body;
+    await user.save();
 
     // Aggregation to find questions by skill
     const questions = await Questions.aggregate([
@@ -17,7 +63,7 @@ exports.create = async (req, res) => {
       {
         $match: {
           technology: {
-            $in: skills,
+            $in: user.skills,
           },
         },
       },
@@ -92,7 +138,7 @@ exports.create = async (req, res) => {
       {
         $match: {
           technology: {
-            $in: skills,
+            $in: user.skills,
           },
         },
       },

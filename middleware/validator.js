@@ -5,7 +5,11 @@ const { check, validationResult } = require("express-validator");
 exports.validateUser = [
   check("name", "Name is required.").notEmpty().trim(),
   check("dob", "Date of birth is required").notEmpty(),
-  check("email", "A valid email is required").notEmpty().isEmail().trim(),
+  check("email", "A valid email is required")
+    .notEmpty()
+    .isEmail()
+    .trim()
+    .toLowerCase(),
   check("contact_no", "Contact number is required")
     .notEmpty()
     .isNumeric()
