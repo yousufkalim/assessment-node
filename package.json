@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "sudo chmod 644 .git/index && git pull origin main && npm install && sudo pm2 restart 13 && sudo pm2 logs 13"
   },
   "repository": {
     "type": "git",
