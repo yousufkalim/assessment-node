@@ -20,6 +20,7 @@ const user_schema = new mongoose.Schema(
       enum: ["single", "married", "divorced", "widower"],
     },
     post: String,
+    address: String,
     skills: {
       type: Array,
       required: true,

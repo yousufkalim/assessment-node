@@ -16,7 +16,7 @@ exports.validateUser = [
     .trim(),
   check("marital_status", "Marital status is required").notEmpty().trim(),
   check("post", "Mention your post").notEmpty().trim(),
-  check("skills", "Mention your skills").notEmpty().trim(),
+  // check("skills", "Mention your skills").notEmpty().trim(),
   check("sect", "Mention your sect").notEmpty().trim(),
   check("total_experience", "Your total experience is required")
     .notEmpty()
@@ -35,6 +35,7 @@ exports.validateUser = [
 // Checking if req is validated or not
 exports.isValidated = (req, res, next) => {
   const errors = validationResult(req);
+  console.log(errors.array());
   if (!errors.isEmpty()) {
     res.status(400).send({ success: false, message: errors.array()[0] });
   } else {

@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
   try {
     let { email, skills } = req.body;
     skills = skills.split(", "); //converting into array of skills obtained from form
-
+    
     // Checking for existing user
     let existingUser = await Users.findOne({ email });
 
