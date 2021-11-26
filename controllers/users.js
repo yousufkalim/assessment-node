@@ -3,8 +3,41 @@ const Users = require("../models/Users.js");
 const Questions = require("../models/Questions");
 const Answers = require("../models/Answers");
 
-// POST - User
+// POST - Create user by HR
 exports.create = async (req, res) => {
+  try {
+    let { email, skills } = req.body;
+    skills = skills.split(", "); //converting into array of skills obtained from form
+
+    // Checking for existing user
+    let existingUser = await Users.findOne({ email });
+
+    if (existingUser) {
+      // If we found a user then we have to set its test_conducted to false
+      existingUser.test_conducted = false;
+      await existingUser.save();
+
+      // Done
+      return res.json({
+        success: true,
+        message: "Candidate added successfully!",
+      });
+    }
+
+    // Creating a user with email and skills
+    await Users.create({ email, skills });
+
+    // Done
+    res.json({ success: true, message: "Candidate added successfully!" });
+  } catch (err) {
+    // Error handling
+    console.log("Error ----> ", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+// Update - User
+exports.update = async (req, res) => {
   try {
     let skills = req.body.skills.split(", "); //converting into array of skills obtained from form
 
