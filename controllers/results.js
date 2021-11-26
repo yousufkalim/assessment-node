@@ -142,6 +142,7 @@ exports.create = async (req, res) => {
     });
 
     user.result = result._id;
+    user.test_conducted = true;
     await user.save();
 
     // All done

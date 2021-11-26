@@ -39,10 +39,23 @@ exports.create = async (req, res) => {
 // Update - User
 exports.update = async (req, res) => {
   try {
-    let skills = req.body.skills.split(", "); //converting into array of skills obtained from form
+    delete req.body.skills;
 
-    // Creating user in db
-    await Users.create({ ...req.body, skills });
+    // Updating the user in db
+    const user = await Users.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found with this email!" });
+    } else if (user.test_conducted) {
+      return res
+        .status(403)
+        .json({ success: false, message: "You cannot perform the test again" });
+    }
+
+    user = req.body;
+    await user.save();
 
     // Aggregation to find questions by skill
     const questions = await Questions.aggregate([
@@ -50,7 +63,7 @@ exports.update = async (req, res) => {
       {
         $match: {
           technology: {
-            $in: skills,
+            $in: user.skills,
           },
         },
       },
@@ -125,7 +138,7 @@ exports.update = async (req, res) => {
       {
         $match: {
           technology: {
-            $in: skills,
+            $in: user.skills,
           },
         },
       },
@@ -198,6 +211,7 @@ exports.update = async (req, res) => {
     res.json({
       success: true,
       message: "User added successfully",
+      user,
       questions,
       answers,
     });
