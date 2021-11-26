@@ -24,12 +24,13 @@ const user_schema = new mongoose.Schema(
     marital_status: {
       type: String,
       required: true,
-      enum: ["single", "married", "divorced", "widowed"],
+      enum: ["Unmarried", "Married", "Divorced", "Widow"],
     },
     post: {
       type: String,
       required: true,
     },
+    address: String,
     skills: {
       type: Array,
       required: true,
@@ -39,11 +40,11 @@ const user_schema = new mongoose.Schema(
       required: true,
     },
     total_experience: {
-      type: String,
+      type: Number,
       required: true,
     },
     post_experience: {
-      type: String,
+      type: Number,
       required: true,
     },
     joining_time: {

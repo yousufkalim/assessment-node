@@ -1,9 +1,11 @@
 // Init
 const router = require("express").Router();
-const { create } = require("../controllers/results");
+const { create, getResults } = require("../controllers/results");
 
 // POST - Result evaluation
 router.post("/", create);
 
+// Test post via excel files
+router.get("/:email", getResults);
 // Export
 module.exports = router;
