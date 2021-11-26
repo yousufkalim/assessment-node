@@ -141,11 +141,14 @@ exports.create = async (req, res) => {
       questionnaire,
     });
 
+    user.result = result._id;
+    await user.save();
+
     // All done
     res.json({
       success: true,
       message: "Result evaluated successfully",
-      result,
+      user,
     });
   } catch (err) {
     // Error handling
@@ -153,14 +156,16 @@ exports.create = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-exports.checkresults = async (req, res) => {
+exports.getResults = async (req, res) => {
   try {
-    const user = await Users.findOne();
+    const user = await Users.findOne({
+      email: req.params.email,
+    }).populate("result");
     res.json({
       email: user.email,
       success: true,
       message: "APIIIIII BEING USED successfully",
-      result,
+      user,
     });
   } catch (err) {
     console.log("Error ----> ", err);
