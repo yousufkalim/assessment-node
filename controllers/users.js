@@ -54,8 +54,7 @@ exports.update = async (req, res) => {
         .json({ success: false, message: "You cannot perform the test again" });
     }
 
-    user = req.body;
-    await user.save();
+    await Users.findByIdAndUpdate(user._id, req.body);
 
     // Aggregation to find questions by skill
     const questions = await Questions.aggregate([
