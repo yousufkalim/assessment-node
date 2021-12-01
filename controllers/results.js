@@ -160,9 +160,11 @@ exports.create = async (req, res) => {
 
 exports.getResults = async (req, res) => {
   try {
-    const user = await Users.findOne({
-      email: req.params.email,
-    }).populate("result");
+    let user = await Users.findOne({ email: req.params.email });
+    user.result = await Result.findOne({ user: user._id })
+      .populate("questionnaire.question")
+      .populate("questionnaire.answer");
+
     res.json({
       email: user.email,
       success: true,
