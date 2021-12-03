@@ -1,13 +1,14 @@
-const Admins = require("./models/Admins.js");
+const Admins = require("../models/Admins.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 //signUp
 exports.signUp = async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    const user = Admins.findOne({ email });
+    const user = await Admins.findOne({ email });
     if (user) {
       res.status(400).json({ message: "User already exist" });
+      console.log("USERRRRRRRR++++++++++++++", user);
     }
     const admin = new Admins({
       name,
@@ -27,7 +28,7 @@ exports.signUp = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = Admins.findOne({ emai });
+    const user = await Admins.findOne({ email });
     if (!user) {
       res.json({ message: "Admin not found" });
     }
@@ -35,8 +36,13 @@ exports.login = async (req, res) => {
     if (!matchPassword) {
       res.status(400).send({ message: "Password is incorrect" });
     }
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
     jwt.sign(
-      user,
+      payload,
       process.env.JSONSECRET,
       { expiresIn: 360000 },
       (err, tokken) => {
