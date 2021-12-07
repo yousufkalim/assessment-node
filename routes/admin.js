@@ -4,7 +4,7 @@ const auth = require("../controllers/auth");
 
 // Test post via excel files
 router.post("/signUp", auth.signUp);
-router.get("/login", auth.login);
+router.post("/login", auth.login);
 
 // Export
 module.exports = router;
