@@ -8,7 +8,6 @@ exports.signUp = async (req, res) => {
     const user = await Admins.findOne({ email });
     if (user) {
       res.status(400).json({ message: "User already exist" });
-      console.log("USERRRRRRRR++++++++++++++", user);
     }
     const admin = new Admins({
       name,
@@ -30,11 +29,12 @@ exports.login = async (req, res) => {
   try {
     const user = await Admins.findOne({ email });
     if (!user) {
-      res.json({ message: "Admin not found" });
+      res.status(404).json({ message: "Admin not found" });
     }
-    const matchPassword = bcrypt.compare(password, user.password);
+    const matchPassword = bcrypt.compareSync(password, user.password);
     if (!matchPassword) {
       res.status(400).send({ message: "Password is incorrect" });
+      console.log();
     }
     const payload = {
       user: {
