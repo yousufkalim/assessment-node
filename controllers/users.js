@@ -221,6 +221,37 @@ exports.update = async (req, res) => {
   }
 };
 
+//GET- All users
+exports.getUsers = async (req, res) => {
+  try {
+    const user = await Users.find();
+    res.json({
+      success: true,
+      message: "Users getting successfully",
+      user,
+    });
+  } catch (err) {
+    console.log("ERROR------>", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+//GET- User by ID
+exports.getUserById = async (req, res) => {
+  try {
+    let user = await Users.findOne({ _id: req.params.id });
+
+    res.json({
+      success: true,
+      message: "APIIIIII BEING USED successfully",
+      user,
+    });
+  } catch (err) {
+    console.log("Error ----> ", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 // GET - Test controller to send dummy answers to evaluate the result
 exports.test = async (req, res) => {
   try {
