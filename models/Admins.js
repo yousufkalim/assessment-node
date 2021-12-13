@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
+// Init
+const { Schema, model } = require("mongoose");
 
-//making schema
-const admin_schema = new mongoose.Schema(
+// Admin Schema
+const adminSchema = new Schema(
   {
     name: {
       type: String,
@@ -10,17 +11,27 @@ const admin_schema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
       required: true,
+      minlength: 8,
+    },
+    role: {
+      type: String,
+      default: "admin",
+    },
+    active: {
+      type: Boolean,
+      default: false,
     },
   },
-
   {
     timestamps: true,
   }
 );
 
-//export model
-module.exports = mongoose.model("admins", admin_schema);
+// Model
+module.exports = model("admins", adminSchema);

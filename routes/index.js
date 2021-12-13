@@ -5,5 +5,5 @@ const router = require("express").Router();
 router.use("/postData", require("./data"));
 router.use("/users", require("./users"));
 router.use("/results", require("./results"));
-router.use("/admin", require("./admin"));
+router.use("/admins", require("./admins"));
 module.exports = router; //exporting route
