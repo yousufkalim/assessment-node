@@ -2,12 +2,12 @@
 const Users = require("../models/Users.js");
 const Questions = require("../models/Questions");
 const Answers = require("../models/Answers");
+const Results = require("../models/Results");
 
 // POST - Create user by HR
 exports.create = async (req, res) => {
   try {
-    let { email, skills } = req.body;
-    skills = skills.split(", "); //converting into array of skills obtained from form
+    let { email } = req.body;
 
     // Checking for existing user
     let existingUser = await Users.findOne({ email });
@@ -15,7 +15,10 @@ exports.create = async (req, res) => {
     if (existingUser) {
       // If we found a user then we have to set its test_conducted to false
       existingUser.test_conducted = false;
-      await existingUser.save();
+      await Users.findByIdAndUpdate(existingUser._id, {
+        ...req.body,
+        test_conducted: false,
+      });
 
       // Done
       return res.json({
@@ -24,8 +27,8 @@ exports.create = async (req, res) => {
       });
     }
 
-    // Creating a user with email and skills
-    await Users.create({ email, skills });
+    // Creating a user with email
+    await Users.create(req.body);
 
     // Done
     res.json({ success: true, message: "Candidate added successfully!" });
@@ -98,7 +101,7 @@ exports.update = async (req, res) => {
                           then: 4,
                           else: {
                             $cond: {
-                              if: { $eq: ["$_id", "Native"] },
+                              if: { $eq: ["$_id", "RN"] },
                               then: 5,
                               else: {
                                 $cond: {
@@ -173,7 +176,7 @@ exports.update = async (req, res) => {
                           then: 4,
                           else: {
                             $cond: {
-                              if: { $eq: ["$_id", "Native"] },
+                              if: { $eq: ["$_id", "RN"] },
                               then: 5,
                               else: {
                                 $cond: {
@@ -224,11 +227,11 @@ exports.update = async (req, res) => {
 //GET- All users
 exports.getUsers = async (req, res) => {
   try {
-    const user = await Users.find();
+    const users = await Users.find().sort({ updatedAt: -1 });
     res.json({
       success: true,
       message: "Users getting successfully",
-      user,
+      users,
     });
   } catch (err) {
     console.log("ERROR------>", err);
@@ -290,6 +293,21 @@ exports.test = async (req, res) => {
       userId: user._id,
       answerIds,
     });
+  } catch (err) {
+    // Error handling
+    console.log("Error ----> ", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+// DELETE - USER
+exports.delete = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Users.findByIdAndDelete(id);
+    await Results.findOneAndDelete({ user: id });
+
+    res.json({ success: true, message: "User deleted successfully" });
   } catch (err) {
     // Error handling
     console.log("Error ----> ", err);
