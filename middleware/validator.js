@@ -1,6 +1,18 @@
 // init
 const { check, validationResult } = require("express-validator");
 
+// Schema to validate initialUser
+exports.validateInitialUser = [
+  check("name", "Name is required").notEmpty().trim(),
+  check("email", "a valid email is required")
+    .notEmpty()
+    .isEmail()
+    .trim()
+    .toLowerCase(),
+  check("department", "Department is required").notEmpty(),
+  check("skills", "Skills are required").notEmpty(),
+];
+
 // Schema to validate user
 exports.validateUser = [
   check("name", "Name is required.").notEmpty().trim(),
@@ -37,7 +49,7 @@ exports.isValidated = (req, res, next) => {
   const errors = validationResult(req);
   console.log(errors.array());
   if (!errors.isEmpty()) {
-    res.status(400).send({ success: false, message: errors.array()[0] });
+    res.status(400).send({ success: false, message: errors.array()[0].msg });
   } else {
     next();
   }
