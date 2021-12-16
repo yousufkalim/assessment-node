@@ -19,6 +19,10 @@ const user_schema = new mongoose.Schema(
       type: String,
       enum: ["single", "married", "divorced", "widower"],
     },
+    department: {
+      type: String,
+      enum: ["MERN", "RN", "dotNET"],
+    },
     post: String,
     address: String,
     skills: {
