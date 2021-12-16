@@ -9,7 +9,6 @@ const tokenSecret = process.env.TOKEN_SECRET;
 exports.checkAdminAuth = (req, res, next) => {
   // Get token from Header
   const header = req.get("Authorization");
-  console.log(header);
 
   // Check if not token
   if (!header || !header.startsWith("Bearer")) {
