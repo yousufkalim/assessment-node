@@ -6,6 +6,6 @@ const { create, getResults } = require("../controllers/results");
 router.post("/", create);
 
 // Test post via excel files
-router.get("/:email", getResults);
+router.get("/:userId", getResults);
 // Export
 module.exports = router;
