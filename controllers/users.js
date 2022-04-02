@@ -111,7 +111,13 @@ exports.update = async (req, res) => {
                                     $cond: {
                                       if: { $eq: ["$_id", "Express"] },
                                       then: 7,
-                                      else: 8,
+                                      else: {
+                                        $cond: {
+                                          if: { $eq: ["$_id", "dotNET"] },
+                                          then: 8,
+                                          else: 9,
+                                        },
+                                      },
                                     },
                                   },
                                 },
@@ -186,7 +192,13 @@ exports.update = async (req, res) => {
                                     $cond: {
                                       if: { $eq: ["$_id", "Express"] },
                                       then: 7,
-                                      else: 8,
+                                      else: {
+                                        $cond: {
+                                          if: { $eq: ["$_id", "dotNET"] },
+                                          then: 8,
+                                          else: 9,
+                                        },
+                                      },
                                     },
                                   },
                                 },
